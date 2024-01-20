@@ -2,6 +2,7 @@ if (!sessionStorage.getItem('name')) {
     window.location.href = '/login'
 }
 else {
+    const baseUrl = 'http://localhost:10000';
     let socket = io()
     socket.emit('set name', { nameUser: sessionStorage.getItem('name'), id: sessionStorage.getItem('id'), avatar: sessionStorage.getItem('avatar') })
     const btn = document.querySelector("#btn")
@@ -122,7 +123,7 @@ else {
                     newElement.appendChild(userMessageElement);
                     chatbox.appendChild(newElement)
                 })
-                if(id) {
+                if (id) {
                     socket.emit('chat to', id)
                 }
 
@@ -181,7 +182,6 @@ else {
             btn.click()
         }
     }
-    const baseUrl = 'http://localhost:3001';
 
     let createMessage = async (idSend, content, idReceive) => {
         let data = await fetch(`${baseUrl}/api/createMessage`, {

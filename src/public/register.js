@@ -1,6 +1,6 @@
 // app.js
 
-const baseUrl = 'http://localhost:3001';
+const baseUrl = 'http://localhost:10000';
 
 const registerApi = async (nameUser, email, password, img) => {
     const formData = new FormData();

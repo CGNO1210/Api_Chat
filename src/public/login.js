@@ -1,6 +1,6 @@
 // app.js
 
-const baseUrl = 'http://localhost:3001';
+const baseUrl = 'http://localhost:10000';
 
 const loginApi = async (email, password) => {
     let data = await fetch(`${baseUrl}/api/login`, {
