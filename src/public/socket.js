@@ -2,7 +2,7 @@ if (!sessionStorage.getItem('name')) {
     window.location.href = '/login'
 }
 else {
-    const baseUrl = 'http://localhost:10000';
+    const baseUrl = 'https://chatapp-f1iv.onrender.com';
     let socket = io()
     socket.emit('set name', { nameUser: sessionStorage.getItem('name'), id: sessionStorage.getItem('id'), avatar: sessionStorage.getItem('avatar') })
     const btn = document.querySelector("#btn")
