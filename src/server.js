@@ -1,9 +1,9 @@
 import express from 'express';
 import http from 'http'
 import bodyParser from 'body-parser';
-import configViewEngine from './config/viewEngine';
+// import configViewEngine from './config/viewEngine';
 import initWebRoutes from './routes/web';
-import setupSocketIO from './config/socketConfig';
+// import setupSocketIO from './config/socketConfig';
 import cors from 'cors';
 import connectDB from './config/connectDB'
 const socketIO = require('socket.io');
@@ -19,7 +19,11 @@ const io = socketIO(server)
 //config app
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-configViewEngine(app)
+
+app.use(express.static("./src/public"))
+app.set("view engine", "ejs")
+app.set("views", "./src/views")
+// configViewEngine(app)
 //socket config
 let connectedSockets = []
 io.on('connection', (socket) => {
