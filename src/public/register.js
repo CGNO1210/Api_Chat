@@ -30,22 +30,38 @@ const nameUser = document.querySelector('.name')
 const emaiUser = document.querySelector(".txt_name");
 const avatar = document.querySelector('.file')
 const passwordUser = document.querySelector(".txt_password");
+const confirmPasswordUser = document.querySelector(".txt_confirm_password");
 const btn_rgt = document.querySelector(".btn_rgt");
 btnLogin.onclick = async (e) => {
     e.preventDefault()
-    if (!nameUser.value || !emaiUser.value || !passwordUser.value) {
+    if (!nameUser.value || !emaiUser.value || !passwordUser.value || !confirmPasswordUser.value) {
         alert('Please input all information')
     } else {
-        let data = await registerApi(nameUser.value, emaiUser.value, passwordUser.value, avatar.files[0])
-        if (data.errCode) {
-            alert(data.errMessage)
+        if (isValidEmail(emaiUser.value)) {
+            if (passwordUser.value !== confirmPasswordUser.value) {
+                alert('confirm password not match!!!')
+            } else {
+                let data = await registerApi(nameUser.value, emaiUser.value, passwordUser.value, avatar.files[0])
+                if (data.errCode) {
+                    alert(data.errMessage)
+                } else {
+                    alert(data.errMessage)
+                    window.location.href = '/login'
+                }
+            }
         } else {
-            alert(data.errMessage)
-            window.location.href = '/login'
+            alert('Địa chỉ email không hợp lệ')
         }
     }
 }
 btn_rgt.onclick = () => {
     window.location.href = '/login'
+}
+function isValidEmail(email) {
+    // Biểu thức chính quy để kiểm tra định dạng email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    // Kiểm tra xem chuỗi có khớp với biểu thức chính quy không
+    return emailRegex.test(email);
 }
 
