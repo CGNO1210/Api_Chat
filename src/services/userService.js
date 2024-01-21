@@ -5,10 +5,10 @@ require('dotenv').config();
 import { generateToken, verifyToken } from '../helpers/jwt.helper';
 const debug = console.log.bind(console);
 let tokenList = {};
-const accessTokenLife = process.env.ACCESS_TOKEN_LIFE;
-const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET;
-const refreshTokenLife = process.env.REFRESH_TOKEN_LIFE;
-const refreshTokenSecret = process.env.REFRESH_TOKEN_SECRET;
+const accessTokenLife = process.env.ACCESS_TOKEN_LIFE || '7d';
+const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET || 'access-token-secret-example--green-cat-a@';
+const refreshTokenLife = process.env.REFRESH_TOKEN_LIFE || '3650d';
+const refreshTokenSecret = process.env.REFRESH_TOKEN_SECRET || 'refresh-token-secret-example--green-cat-a@';
 
 require('dotenv').config();
 const cloudinary = require('cloudinary').v2
