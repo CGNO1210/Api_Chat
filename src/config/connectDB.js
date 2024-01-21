@@ -26,6 +26,10 @@ let connectDB = async () => {
     await sequelize.authenticate();
     console.log('Connection has been established successfully.');
   } catch (error) {
+    console.log(process.env.DB_DATABASE)
+    console.log(process.env.DB_USERNAME)
+    console.log(process.env.DB_PASSWORD)
+    console.log(process.env.DB_HOST)
     console.error('Unable to connect to the database:', error);
   }
 }
