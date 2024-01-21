@@ -13,9 +13,9 @@ const refreshTokenSecret = process.env.REFRESH_TOKEN_SECRET;
 require('dotenv').config();
 const cloudinary = require('cloudinary').v2
 cloudinary.config({
-    cloud_name: process.env.CLOUND_NAME,
-    api_key: process.env.API_KEY,
-    api_secret: process.env.API_SECRET,
+    cloud_name: process.env.CLOUND_NAME || 'dsvacsceu',
+    api_key: process.env.API_KEY || '985563361639596',
+    api_secret: process.env.API_SECRET || '5HLvQ7zYAabvuTbNi03uzLuU1EM',
     secure: true
 });
 

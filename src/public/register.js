@@ -1,6 +1,6 @@
 // app.js
 
-const baseUrl = 'http://localhost:3001';
+const baseUrl = 'https://chatapp-q19c.onrender.com';
 
 const registerApi = async (nameUser, email, password, img) => {
     const formData = new FormData();

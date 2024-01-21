@@ -2,7 +2,7 @@ if (!sessionStorage.getItem('name')) {
     window.location.href = '/login'
 }
 else {
-    const baseUrl = 'http://localhost:3001';
+    const baseUrl = 'https://chatapp-q19c.onrender.com';
     const btn = document.querySelector("#btn")
     const chat = document.querySelector(".chat");
     const chatbox = document.querySelector(".chatbox");
