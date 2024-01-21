@@ -29,7 +29,7 @@ let connectedSockets = []
 io.on('connection', (socket) => {
     console.log('Người ' + socket.id + ' đã kết nối');
     socket.chat = 'all'
-    // Lắng nghe sự kiện từ client
+    // Nhận thông tin người dùng khi đăng nhập
     socket.on('set name', (data) => {
         socket.userName = data.nameUser
         socket.idUser = data.id
@@ -37,8 +37,10 @@ io.on('connection', (socket) => {
         connectedSockets.push(socket)
         io.emit('all users', getSocketIds());
     })
+    //nhận tin nhắn khi người dùng gửi
     socket.on('user send message', (message) => {
         let userName = socket.userName;
+        //gửi lại cho người nhận
         if (socket.chat === 'all') {
             socket.broadcast.emit('user receive message', { message, userName })
         } else {

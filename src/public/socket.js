@@ -3,8 +3,6 @@ if (!sessionStorage.getItem('name')) {
 }
 else {
     const baseUrl = 'http://localhost:3001';
-    let socket = io()
-    socket.emit('set name', { nameUser: sessionStorage.getItem('name'), id: sessionStorage.getItem('id'), avatar: sessionStorage.getItem('avatar') })
     const btn = document.querySelector("#btn")
     const chat = document.querySelector(".chat");
     const chatbox = document.querySelector(".chatbox");
@@ -12,15 +10,23 @@ else {
     const usersOfflineBlock = document.querySelector(".offline")
     const nameChat = document.querySelector(".nameChat")
     const avatar = document.querySelector(".left_footer img")
+
+
+    let socket = io()
+    //khi dăng nhập gửi thông tin user về sever
+    socket.emit('set name', {
+        nameUser: sessionStorage.getItem('name'),
+        id: sessionStorage.getItem('id'),
+        avatar: sessionStorage.getItem('avatar')
+    })
+
     avatar.src = sessionStorage.getItem('avatar')
     let id_receive = ''
     document.querySelector(".left_user").innerHTML = sessionStorage.getItem('name')
-    //Lấy ra tất cả những người đang online
+    
+    //Lấy ra tất cả những người đang online,offline
     socket.on('all users', async (data) => {
-        console.log('#############')
-        //user online
-        console.log(data)
-        console.log('*************')
+
         //all Users
         let allUsers = await getAllUser()
         console.log(allUsers.users)
@@ -30,10 +36,10 @@ else {
                 return userA.idUser == userB.id;
             });
         });
-        console.log('$$$$$$$$$$$$$')
-        console.log(offlineUser)
-        //trừ bỏ đi người dùng hiện tại
+        //trừ bỏ đi người dùng hiện tại => danh sách những người online
         data = data.filter((s) => s.id !== socket.id);
+
+        //cập nhật lên giao diện
         usersOnlineBlock.innerHTML = ''
         data.forEach((item) => {
             let newElement = document.createElement("div");
@@ -61,8 +67,8 @@ else {
             newElement.appendChild(hiddenInputIdUser)
             usersOnlineBlock.appendChild(newElement)
         })
-        //offline
 
+        //offline
         usersOfflineBlock.innerHTML = ''
         offlineUser.forEach((item) => {
             let newElement = document.createElement("div");
@@ -132,15 +138,19 @@ else {
                     newElement.appendChild(userMessageElement);
                     chatbox.appendChild(newElement)
                 })
+
+                //khi người dùng click vào user bất kì thực hiện chat realtime với user đó nếu họ online
+                //nếu offline chỉ lưu message vào db
                 if (id) {
                     socket.emit('chat to', id)
                 }
-
             }
         })
     })
     //nhận tin nhắn
     socket.on('user receive message', (data) => {
+
+        //cập nhật tin nhắn lên giao diện
         let newElement = document.createElement("div");
         newElement.classList.add("block");
         newElement.classList.add("receive");
@@ -181,7 +191,9 @@ else {
         // chatbox.appendChild(newElement)
         chatbox.insertBefore(newElement, chatbox.firstChild);
 
+        //lưu tin nhắn vào db
         await createMessage(sessionStorage.getItem('id'), chat.value, id_receive)
+        //gửi tin nhắn về cho serer qua socket
         socket.emit('user send message', chat.value)
         chat.value = ''
     }

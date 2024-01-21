@@ -8,20 +8,18 @@ const upload = multer({ storage });
 let router = express.Router();
 
 let initWebRoutes = (app) => {
+    //Đăng nhập
     router.post("/api/login", userController.handleLogin)
+    //Đăng ký
     router.post("/api/register",upload.single('img'), userController.handleCreateNewUser)
-    router.post("/refeshToken", userController.refreshToken)
-    router.post("/api/createNewUser", userController.handleCreateNewUser)
+    //Lấy ra tất cả user
     router.get('/api/getAllUser',userController.handleGetAllUser)
+    //Tạo message (Gửi tin nhắn)
     router.post('/api/createMessage',messageController.createMessage)
+    //Lấy ra tất cả tin nhắn (Load tất cả tin nhắn của user1 và user2)
     router.get('/api/getMessages',messageController.getMessageByUser1AndUser2)
-    router.get("/test", (req, res) => {
-        return res.status(200).json({
-            errCode: 0,
-            errMessage: "Success",
-            data: "Test abcd"
-        })
-    })
+
+
     router.get('/login',(req,res) => {
         res.render('login.ejs')        
     })
