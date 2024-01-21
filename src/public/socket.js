@@ -2,7 +2,7 @@ if (!sessionStorage.getItem('name')) {
     window.location.href = '/login'
 }
 else {
-    const baseUrl = 'https://chatapp-f1iv.onrender.com';
+    const baseUrl = 'http://localhost:3001';
     let socket = io()
     socket.emit('set name', { nameUser: sessionStorage.getItem('name'), id: sessionStorage.getItem('id'), avatar: sessionStorage.getItem('avatar') })
     const btn = document.querySelector("#btn")
@@ -93,6 +93,15 @@ else {
         //onclick vào user để hiện đoạn chat
         document.querySelectorAll(".user").forEach((item) => {
             item.onclick = async () => {
+                let right = document.querySelector('.right')
+                let choose_chat = document.querySelector('.choose_chat')
+                if (right.classList.contains('none')) {
+                    right.classList.remove('none')
+                }
+                if (!choose_chat.classList.contains('none')) {
+                    choose_chat.classList.add('none')
+                }
+
                 chatbox.innerHTML = ''
                 let my_id = sessionStorage.getItem('id')
                 nameChat.innerHTML = item.innerHTML

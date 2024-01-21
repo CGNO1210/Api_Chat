@@ -17,7 +17,8 @@ require('dotenv').config();
 
 const host = process.env.DB_HOST || 'br4zrzu3vulbsepz7tvg-mysql.services.clever-cloud.com'
 const database = process.env.DB_DATABASE || 'br4zrzu3vulbsepz7tvg'
-const password = process.env.DB_PASSWORD || 'QNBgh5ZEsybZZ5l0XoWJ'
+const password = process.env.DB_PASSWORD
+// || 'QNBgh5ZEsybZZ5l0XoWJ'
 const username = process.env.DB_USERNAME || 'u1qxeesr6dwlrgcf'
 
 const sequelize = new Sequelize(database, username, password, {

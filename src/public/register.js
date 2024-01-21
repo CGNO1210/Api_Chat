@@ -1,6 +1,6 @@
 // app.js
 
-const baseUrl = 'https://chatapp-f1iv.onrender.com';
+const baseUrl = 'http://localhost:3001';
 
 const registerApi = async (nameUser, email, password, img) => {
     const formData = new FormData();

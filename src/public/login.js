@@ -1,6 +1,6 @@
 // app.js
 
-const baseUrl = 'https://chatapp-f1iv.onrender.com';
+const baseUrl = 'http://localhost:3001';
 
 const loginApi = async (email, password) => {
     let data = await fetch(`${baseUrl}/api/login`, {
