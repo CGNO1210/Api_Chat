@@ -45,7 +45,7 @@ btnLogin.onclick = async (e) => {
                 if (data.errCode) {
                     alert(data.errMessage)
                 } else {
-                    alert(data.errMessage)
+                    alert("Tạo tài khoản thành công")
                     window.location.href = '/login'
                 }
             }
